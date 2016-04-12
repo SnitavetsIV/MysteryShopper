@@ -1,0 +1,18 @@
+{
+  "name": "mysh-ui",
+  "private": true,
+  "version": "0.0.1",
+  "description": "UI AngularJS 1 project for Mystery Shopper",
+  "license": "MIT",
+  "author": "SnitavetsIV",
+  "devDependencies": {
+    "angular-mocks": "^1.5.3",
+    "bower": "^1.7.9",
+    "gulp": "^3.9.1",
+    "http-server": "^0.6.1",
+    "jasmine-core": "^2.4.1",
+    "karma": "^0.13.22",
+    "karma-chrome-launcher": "^0.2.3",
+    "karma-jasmine": "^0.3.8"
+  }
+}
