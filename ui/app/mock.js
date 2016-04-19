@@ -1,9 +1,11 @@
-angular.module('app-mock', ['ngMockE2E'])
-    .run(function ($httpBackend) {
+(function (appModule) {
+  angular.module('app-mock', ['ngMockE2E'])
+      .run(function ($httpBackend) {
 
-      $httpBackend.whenGET(/\.html/).passThrough();
-      
-    });
+        $httpBackend.whenGET(/\.html/).passThrough();
+
+      });
 
 
-angular.module('app').requires.push('app-mock');
+  appModule.requires.push('app-mock');
+}(angular.module('app')));
