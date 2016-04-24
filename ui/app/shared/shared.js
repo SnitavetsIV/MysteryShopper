@@ -1,5 +1,5 @@
 (function () {
 
-  var sharedModule = angular.module("app.shared", []);
+  var sharedModule = angular.module("app.shared", ["ngCookies"]);
 
 }());
