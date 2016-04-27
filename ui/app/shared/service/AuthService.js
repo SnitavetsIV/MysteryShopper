@@ -1,6 +1,9 @@
 (function (sharedModule) {
 
-  sharedModule.factory('AuthService', function ($http, $cookieStore, $rootScope) {
+  sharedModule.factory('AuthService', function ($http, localStorageService, $rootScope) {
+
+    //check token after f5
+
     var service = {};
 
     service.Authenticate = function (username, password, callback) {
@@ -9,13 +12,18 @@
 
       $http.post('/api/authenticate', {username: username, password: password})
         .then(function successCallback(response) {
-          ret.userType = response.data.userType;
-          console.log("success auth");
-          console.log(response);
+          if (response.data) {
+            if (response.data.userType && response.data.token) {
+              ret.userType = response.data.userType;
+              //add to localStorageService token
+            } else {
+              ret.message = response.data.message | "Unknown error while trying authenticate";
+            }
+          } else {
+            ret.message = "Unknown error while trying authenticate";
+          }
           callback(ret);
         }, function errorCallback(response) {
-          console.log("error auth");
-          console.log(response);
           if (response.data && response.data.message) {
             ret.message = response.data.message;
           } else {
@@ -26,25 +34,9 @@
 
     };
 
-    service.SetCredentials = function (username, password, userType) {
-      var authdata = Base64.encode(username + ':' + password + ':' + userType);
-
-      $rootScope.globals = {
-        currentUser: {
-          username: username,
-          userType: userType,
-          authdata: authdata
-        }
-      };
-
-      $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
-      $cookieStore.put('globals', $rootScope.globals);
-    };
-
     service.ClearCredentials = function () {
       $rootScope.globals = {};
-      $cookieStore.remove('globals');
-      $http.defaults.headers.common.Authorization = 'Basic';
+      //localStorageService clear token
     };
 
     return service;

@@ -16,7 +16,7 @@
       $scope.message = "";
       AuthService.Authenticate($scope.user.username, $scope.user.password, function (resp) {
         if (resp.userType) {
-          AuthService.SetCredentials($scope.user.username, $scope.user.password, resp.userType);
+          //redirect on page due to url param or userType
           alert("Success");
         } else {
           $scope.message = resp.message;

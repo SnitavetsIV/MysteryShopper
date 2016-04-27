@@ -5,7 +5,7 @@
     $scope.user = {
       username: "",
       password: "",
-      type: "MysteryShopper"
+      type: "shopper"
     };
 
     $scope.register = function () {

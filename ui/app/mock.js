@@ -51,6 +51,8 @@
       //END Guest module
 
       $httpBackend.whenGET(/\.html/).passThrough();
+      $httpBackend.whenGET(/\.html/).passThrough();
+
 
     });
 
