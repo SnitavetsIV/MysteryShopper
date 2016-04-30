@@ -27,6 +27,12 @@
         <input type="password" class="form-control" placeholder="Retype password" required>
         <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
       </div>
+      <div class="form-group has-feedback">
+        <select class="form-control" ng-required="required" required ng-model="user.type">
+          <option value="shopper">Mystery Shopper</option>
+          <option value="manager">Company Manager</option>
+        </select>
+      </div>
       <div class="row">
         <div class="col-xs-offset-8 col-xs-4">
           <button type="submit" class="btn btn-primary btn-block btn-flat" ng-disabled="form.$invalid">Register</button>

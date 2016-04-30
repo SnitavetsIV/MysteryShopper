@@ -1,6 +1,6 @@
 (function (sharedModule) {
 
-  sharedModule.factory('AuthService', function ($http, localStorageService, $rootScope) {
+  sharedModule.factory('AuthService', function ($http, localStorageService, $rootScope, UserService) {
 
     //check token after f5
 
@@ -11,26 +11,48 @@
       var ret = {};
 
       $http.post('/api/authenticate', {username: username, password: password})
-        .then(function successCallback(response) {
-          if (response.data) {
-            if (response.data.userType && response.data.token) {
+          .then(function successCallback(response) {
+            if (response.data && response.data.userType && response.data.token) {
               ret.userType = response.data.userType;
-              //add to localStorageService token
+              localStorageService.add("token", response.data.token);
             } else {
-              ret.message = response.data.message | "Unknown error while trying authenticate";
+              ret.message = "Unknown error while trying authenticate";
             }
-          } else {
-            ret.message = "Unknown error while trying authenticate";
-          }
-          callback(ret);
-        }, function errorCallback(response) {
-          if (response.data && response.data.message) {
-            ret.message = response.data.message;
-          } else {
-            ret.message = "Unknown error while trying authenticate";
-          }
-          callback(ret);
-        });
+            callback(ret);
+          }, function errorCallback(response) {
+            if (response.data && response.data.message) {
+              ret.message = response.data.message;
+            } else if (response.status == 404) {
+              ret.message = "Incorrect username or password";
+            } else {
+              ret.message = "Unknown error while trying authenticate";
+            }
+            callback(ret);
+          });
+
+    };
+
+    service.Register = function (username, password, type, callback) {
+
+      var ret = {};
+
+      UserService.saveUser({
+        username: username,
+        password: password,
+        userType: type
+      }, function (response) {
+        ret.success = true;
+        callback(ret);
+      }, function (response) {
+        if (response.data && response.data.message) {
+          ret.message = response.data.message;
+        } else if (response.status == 409) {
+          ret.message = "Username already exist";
+        } else {
+          ret.message = "Unknown error while trying register new user";
+        }
+        callback(ret);
+      });
 
     };
 
@@ -70,10 +92,10 @@
         }
 
         output = output +
-          this.keyStr.charAt(enc1) +
-          this.keyStr.charAt(enc2) +
-          this.keyStr.charAt(enc3) +
-          this.keyStr.charAt(enc4);
+            this.keyStr.charAt(enc1) +
+            this.keyStr.charAt(enc2) +
+            this.keyStr.charAt(enc3) +
+            this.keyStr.charAt(enc4);
         chr1 = chr2 = chr3 = "";
         enc1 = enc2 = enc3 = enc4 = "";
       } while (i < input.length);
@@ -91,8 +113,8 @@
       var base64test = /[^A-Za-z0-9\+\/\=]/g;
       if (base64test.exec(input)) {
         window.alert("There were invalid base64 characters in the input text.\n" +
-          "Valid base64 characters are A-Z, a-z, 0-9, '+', '/',and '='\n" +
-          "Expect errors in decoding.");
+            "Valid base64 characters are A-Z, a-z, 0-9, '+', '/',and '='\n" +
+            "Expect errors in decoding.");
       }
       input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
 

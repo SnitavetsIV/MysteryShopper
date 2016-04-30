@@ -1,6 +1,6 @@
 (function (guestModule) {
 
-  var registerController = function ($scope) {
+  var registerController = function ($scope, $state, AuthService) {
 
     $scope.user = {
       username: "",
@@ -12,8 +12,8 @@
       $scope.message = "";
       AuthService.Register($scope.user.username, $scope.user.password, $scope.user.type, function (resp) {
         if (resp.success) {
-          AuthService.SetCredentials($scope.user.username, $scope.user.password, $scope.user.type);
           alert("Success");
+          $state.go('guest.signin');
         } else {
           $scope.message = resp.message;
         }

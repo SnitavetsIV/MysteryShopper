@@ -15,13 +15,13 @@
           id: 2,
           username: 'MySh',
           password: 'MySh',
-          userType: 'MysteryShopper'
+          userType: 'Shopper'
         },
         {
           id: 3,
           username: 'CoMa',
           password: 'CoMa',
-          userType: 'CompanyManager'
+          userType: 'Manager'
         }
       ];
 
@@ -33,24 +33,43 @@
           var user = userData[i];
           if (user.username === data.username &&
             user.password === data.password) {
-            return [200, {userType: user.userType}];
+            return [200, {userType: user.userType, token: 'blablabla' + user.username}];
           }
         }
-        return [404, {message: 'Invalid username or password'}];
+        return [404];
       });
 
       $httpBackend.whenPOST('/api/user').respond(function (method, url, data, headers) {
         data = JSON.parse(data);
         if (data.username && data.password && data.userType) {
-          //check username exist
-
+          var nextId = 0;
+          for (var i = 0; i < userData.length; i++) {
+            if (userData[i].username == data.username) {
+              return [409, {message: 'Username already exist'}];
+            }
+            if (userData[i].id > nextId) {
+              nextId = userData[i].id;
+            }
+          }
+          if (data.userType != 'shopper' && data.userType != 'manager') {
+            return [403];
+          }
+          nextId++;
+          userData.push({
+            id: nextId,
+            username: data.username,
+            password: data.password,
+            userType: data.userType
+          });
+          return [200];
+        } else {
+          return [404];
         }
 
       });
 
       //END Guest module
 
-      $httpBackend.whenGET(/\.html/).passThrough();
       $httpBackend.whenGET(/\.html/).passThrough();
 
 

@@ -1,11 +1,15 @@
 (function (sharedModule) {
 
-  sharedModule.factory("AuthInterceptor", function ($q, localStorageService) {
-
-    //check token and if exist add to request
-
-    //handle 401 and 403 status response
-
+  sharedModule.factory("AuthInterceptor", function ($q, localStorageService, $location) {
+    return {
+      request: function (config) {
+        var token = localStorageService.get('token');
+        if (token) {
+          config.headers['Authorization'] = 'bearer ' + token;
+        }
+        return config;
+      }
+    };
   });
 
 }(angular.module("app.shared")));
