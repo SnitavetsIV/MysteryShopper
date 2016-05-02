@@ -1,6 +1,6 @@
 (function (sharedModule) {
 
-  sharedModule.factory('AuthService', function ($http, localStorageService, $rootScope, UserService) {
+  sharedModule.factory('AuthService', function ($http, localStorageService, UserService) {
 
     //check token after f5
 
@@ -14,7 +14,7 @@
           .then(function successCallback(response) {
             if (response.data && response.data.userType && response.data.token) {
               ret.userType = response.data.userType;
-              localStorageService.add("token", response.data.token);
+              localStorageService.set("token", response.data.token);
             } else {
               ret.message = "Unknown error while trying authenticate";
             }
@@ -57,8 +57,7 @@
     };
 
     service.ClearCredentials = function () {
-      $rootScope.globals = {};
-      //localStorageService clear token
+      localStorageService.remove("token");
     };
 
     return service;
