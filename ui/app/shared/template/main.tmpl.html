@@ -1,0 +1,53 @@
+<div class="wrapper">
+
+  <header class="main-header">
+    <a class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><b>M</b>y<b>S</b>h</span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b>Mystery Shopper</b></span>
+    </a>
+    <nav class="navbar navbar-static-top">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+
+      <div class="navbar-custom-menu" ui-view="topmenu">
+
+      </div>
+    </nav>
+  </header>
+
+  <aside class="main-sidebar">
+    <section class="sidebar" style="height: auto;">
+
+      <form action="#" method="get" class="sidebar-form">
+        <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="Search..." data-cip-id="cIPJQ342845639">
+              <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+        </div>
+      </form>
+
+      <ul class="sidebar-menu" ui-view="sidemenu">
+
+      </ul>
+    </section>
+  </aside>
+
+  <div class="content-wrapper" ui-view="content">
+
+  </div>
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">
+      <b>Minsk</b> 2016
+    </div>
+    <strong>Snitavets Ilya, <a href="http://www.bsuir.by/">BSUIR</a>.</strong>
+  </footer>
+</div>

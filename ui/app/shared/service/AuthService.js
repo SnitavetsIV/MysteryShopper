@@ -15,6 +15,10 @@
             if (response.data && response.data.userType && response.data.token) {
               ret.userType = response.data.userType;
               localStorageService.set("token", response.data.token);
+              localStorageService.set("user", {
+                username: username,
+                userType: ret.userType
+              });
             } else {
               ret.message = "Unknown error while trying authenticate";
             }
@@ -58,6 +62,7 @@
 
     service.ClearCredentials = function () {
       localStorageService.remove("token");
+      localStorageService.remove("user");
     };
 
     return service;

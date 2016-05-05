@@ -1,5 +1,5 @@
 (function () {
 
-  var managerModule = angular.module("app.manager", ["app.shared"]);
+  var managerModule = angular.module("app.manager", ["app.shared", "ui.router"]);
 
 }());

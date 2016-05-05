@@ -5,6 +5,7 @@
     //My modules
     "app.shared",
     "app.guest",
+    "app.manager",
     //angular modules
     "ui.router",
     "LocalStorageModule"]);

@@ -5,14 +5,26 @@
 
     $stateProvider.state("manager", {
       url: "/m",
-      template: "<div ui-view></div>",
-      abstract: true
-    }).state("manager.main", {
-      url: "/signin",
-      templateUrl: "guest/template/signin.html",
-      controller: "loginController",
+      templateUrl: "shared/template/main.tmpl.html",
       data: {
-        cssClassnames: "hold-transition login-page"
+        cssClassnames: "sidebar-mini skin-green-light"
+      },
+      abstract: true
+    }).state("manager.home", {
+      url: "/home",
+      views: {
+        'topmenu': {
+          templateUrl: "manager/template/topMenu.html",
+          controller: "ManagerTopMenuController"
+        },
+        'content': {
+          templateUrl: "manager/template/home.html",
+          controller: "ManagerHomeController"
+        },
+        'sidemenu': {
+          templateUrl: "manager/template/menu.html",
+          controller: "ManagerMenuController"
+        }
       }
     });
   }]);

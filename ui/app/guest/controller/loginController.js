@@ -1,6 +1,6 @@
 (function (guestModule) {
 
-  var loginController = function ($scope, AuthService) {
+  var loginController = function ($scope, AuthService, $location) {
 
     (function initController() {
       // reset login status
@@ -16,8 +16,11 @@
       $scope.message = "";
       AuthService.Authenticate($scope.user.username, $scope.user.password, function (resp) {
         if (resp.userType) {
-          //redirect on page due to url param or userType
-          alert("Success");
+          if (resp.userType == 'Manager') {
+            $location.path('/m/home');
+          } else {
+            alert("Success");
+          }
         } else {
           $scope.message = resp.message;
         }
