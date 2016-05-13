@@ -4,7 +4,7 @@
     $scope.user = localStorageService.get("user");
     $scope.signout = function () {
       AuthService.ClearCredentials();
-      $location.go("/g/signin");
+      $location.path("/g/signin");
     }
   });
 

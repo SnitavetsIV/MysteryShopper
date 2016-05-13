@@ -27,13 +27,29 @@
 
       //START Guest module
 
-      $httpBackend.whenPOST('/api/authenticate').respond(function (method, url, data, headers) {
+      $httpBackend.whenPOST('/api/auth').respond(function (method, url, data, headers) {
         data = JSON.parse(data);
+        if (!data.username || !data.password) {
+          return [404];
+        }
         for (var i = 0; i < userData.length; i++) {
           var user = userData[i];
           if (user.username === data.username &&
             user.password === data.password) {
             return [200, {userType: user.userType, token: 'blablabla' + user.username}];
+          }
+        }
+        return [404];
+      });
+
+      $httpBackend.whenGET('/api/auth').respond(function (method, url, data, headers) {
+        data = JSON.parse(data);
+        if (!data.token) {
+          return [404];
+        } else {
+          //need to check is token exist in db
+          if (data.token.startsWith("blablabla")) {
+            return [202];
           }
         }
         return [404];

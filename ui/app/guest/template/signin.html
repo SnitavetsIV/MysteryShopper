@@ -8,18 +8,21 @@
     <div ng-show="message">
       <p class="login-box-msg text-danger" ng-bind="message"></p>
     </div>
-    <form name="form" ng-submit="login()">
+    <form name="loginForm" ng-submit="login()">
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="Username" ng-model="user.username" required>
+        <input type="text" class="form-control" placeholder="Username" ng-model="user.username" required
+               name="username">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Password" ng-model="user.password" required>
+        <input type="password" class="form-control" placeholder="Password" ng-model="user.password" required
+               name="password">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
         <div class="col-xs-offset-8 col-xs-4">
-          <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary btn-block btn-flat">Sign In</button>
+          <button type="submit" ng-disabled="loginForm.$invalid" class="btn btn-primary btn-block btn-flat">Sign In
+          </button>
         </div>
       </div>
     </form>
