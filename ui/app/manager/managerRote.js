@@ -26,6 +26,54 @@
           controller: "ManagerMenuController"
         }
       }
+    }).state("manager.venue", {
+      url: "/venue",
+      views: {
+        'topmenu': {
+          templateUrl: "manager/template/topMenu.html",
+          controller: "ManagerTopMenuController"
+        },
+        'content': {
+          templateUrl: "manager/template/venue.html",
+          controller: "ManagerVenueController"
+        },
+        'sidemenu': {
+          templateUrl: "manager/template/menu.html",
+          controller: "ManagerMenuController"
+        }
+      }
+    }).state("manager.checklist", {
+      url: "/checklist",
+      views: {
+        'topmenu': {
+          templateUrl: "manager/template/topMenu.html",
+          controller: "ManagerTopMenuController"
+        },
+        'content': {
+          templateUrl: "manager/template/checklist.html",
+          controller: "ManagerChecklistController"
+        },
+        'sidemenu': {
+          templateUrl: "manager/template/menu.html",
+          controller: "ManagerMenuController"
+        }
+      }
+    }).state("manager.review", {
+      url: "/review",
+      views: {
+        'topmenu': {
+          templateUrl: "manager/template/topMenu.html",
+          controller: "ManagerTopMenuController"
+        },
+        'content': {
+          templateUrl: "manager/template/review.html",
+          controller: "ManagerReviewController"
+        },
+        'sidemenu': {
+          templateUrl: "manager/template/menu.html",
+          controller: "ManagerMenuController"
+        }
+      }
     });
   }]);
 
